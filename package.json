@@ -1,0 +1,19 @@
+{
+  "name": "wordle-helper",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "lint": "eslint '*.js' --fix",
+    "watch": "nodemon handler.local.js"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "serverless-http": "^2.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "nodemon": "^2.0.15",
+    "serverless-domain-manager": "^5.6.0"
+  }
+}
