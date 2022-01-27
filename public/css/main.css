@@ -16,11 +16,7 @@
     display: flex;
     align-items: center;
 }
+#nav-github:hover svg { fill: white; }
 
-#nav-github:hover svg {
-    fill: white;
-}
-
-.hide {
-    display: none;
-}
+.hide { display: none; }
+.not-allowed { cursor: not-allowed; }

@@ -52,25 +52,30 @@
                             target="_blank" rel="noopener noreferrer">Wordle</a> and find yourself stuck? Enter some
                         search criteria to get started.</p>
                     <div id="wh-form" class="row g-3">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label for="word-start" class="form-label">Starts With</label>
                             <input type="text" class="form-control wh-param-input" id="word-start" data-param="start"
                                 autocomplete="off">
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <label for="word-contains" class="form-label">Contains</label>
                             <input type="text" class="form-control wh-param-input" id="word-contains"
                                 data-param="contains" autocomplete="off">
                         </div>
                         <div class="col-md-3">
+                            <label for="word-excludes" class="form-label">Does Not Contain</label>
+                            <input type="text" class="form-control wh-param-input" id="word-excludes"
+                                data-param="excludes" autocomplete="off">
+                        </div>
+                        <div class="col-md-2">
                             <label for="word-end" class="form-label">Ends With</label>
                             <input type="text" class="form-control wh-param-input" id="word-end" data-param="end"
                                 autocomplete="off">
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <!-- TODO: support other lengths (optional) -->
                             <label for="word-length" class="form-label">Length</label>
-                            <select id="word-length" class="form-select" aria-label="Word length" disabled>
+                            <select id="word-length" class="form-select not-allowed" aria-label="Word length" disabled>
                                 <option selected>5</option>
                             </select>
                         </div>
@@ -141,8 +146,8 @@
                                 $wordList = $("<ul>").append($words);
 
                             $resultWords.empty().append($wordList);
-                            $resultTime.text((time / 1000).toFixed(3) + "s");
-                            $resultCount.text(data.count);
+                            $resultTime.text(fmtNumber((time / 1000).toFixed(3)) + "s");
+                            $resultCount.text(fmtNumber(data.count));
                         });
                         // TODO: add $request.fail() -- need to handle the "abort" scenario
                     }, 500);
@@ -151,6 +156,10 @@
                     $resultTime.text("0s");
                     $resultCount.text(0);
                 }
+            }
+
+            function fmtNumber(num) {
+                return num ? ("" + num).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : num
             }
 
             $("#wh-form .wh-param-input").on("input", function (ctrl) {
