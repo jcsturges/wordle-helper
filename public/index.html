@@ -11,86 +11,162 @@
     <link rel="canonical" href="https://wordle.j16s.com">
 
     <!-- Bootstrap core CSS -->
-    <link href="css/lib/bootstrap.min_5.1.3.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet">
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://jsturges.com/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://jsturges.com/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://jsturges.com/favicon-16x16.png">
-    <link rel="icon" type="image/x-icon" href="https://jsturges.com/favicon.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="https://jsturges.com/favicon.ico">
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
-    </style>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
 
     <main>
         <div class="container py-4">
-            <header class="pb-3 mb-4 border-bottom">
-                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94"
-                        role="img">
-                        <title>Bootstrap</title>
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"
-                            fill="currentColor"></path>
-                    </svg>
-                    <span class="fs-4">Jumbotron example</span>
+            <header class="d-flex flex-wrap justify-content-center pb-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <img src="img/apple-touch-icon.png" width="32" height="32" style="margin-right: 8px;" />
+                    <span class="fs-4">Wordle Helper</span>
                 </a>
+                <ul class="nav nav-pills">
+                    <a id="nav-github" class="btn btn-sm btn-outline-dark"
+                        href="https://github.com/jcsturges/wordle-helper" role="button" target="_blank"
+                        rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-github" viewBox="0 0 16 16" style="margin-right: 5px;">
+                            <path
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                        </svg> GitHub
+                    </a>
+                </ul>
             </header>
 
             <div class="p-5 mb-4 bg-light rounded-3">
                 <div class="container-fluid py-5">
-                    <h1 class="display-5 fw-bold">Custom jumbotron</h1>
-                    <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the
-                        one in previous versions of Bootstrap. Check out the examples below for how you can remix and
-                        restyle it to your liking.</p>
-                    <button class="btn btn-primary btn-lg" type="button">Example button</button>
+                    <h1 class="display-5 fw-bold">Find a word</h1>
+                    <p class="col-md-8 fs-4">Playing a nice game of <a href="https://www.powerlanguage.co.uk/wordle/"
+                            target="_blank" rel="noopener noreferrer">Wordle</a> and find yourself stuck? Enter some
+                        search criteria to get started.</p>
+                    <div id="wh-form" class="row g-3">
+                        <div class="col-md-3">
+                            <label for="word-start" class="form-label">Starts With</label>
+                            <input type="text" class="form-control wh-param-input" id="word-start" data-param="start"
+                                autocomplete="off">
+                        </div>
+                        <div class="col-md-5">
+                            <label for="word-contains" class="form-label">Contains</label>
+                            <input type="text" class="form-control wh-param-input" id="word-contains"
+                                data-param="contains" autocomplete="off">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="word-end" class="form-label">Ends With</label>
+                            <input type="text" class="form-control wh-param-input" id="word-end" data-param="end"
+                                autocomplete="off">
+                        </div>
+                        <div class="col-md-1">
+                            <!-- TODO: support other lengths (optional) -->
+                            <label for="word-length" class="form-label">Length</label>
+                            <select id="word-length" class="form-select" aria-label="Word length" disabled>
+                                <option selected>5</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="row align-items-md-stretch">
+            <div id="word-results" class="row align-items-md-stretch">
                 <div class="col-md-6">
                     <div class="h-100 p-5 text-white bg-dark rounded-3">
-                        <h2>Change the background</h2>
-                        <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron
-                            look. Then, mix and match with additional component themes and more.</p>
-                        <button class="btn btn-outline-light" type="button">Example button</button>
+                        <h2>Metrics</h2>
+                        <div class="row">
+                            <div class="col">
+                                <h1 id="word-results-count" class="fs-1 font-monospace">0</h1>
+                                <div>Words</div>
+                            </div>
+                            <div class="col">
+                                <h1 id="word-results-time" class="fs-1 font-monospace">0s</h1>
+                                <div>Time</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="h-100 p-5 bg-light border rounded-3">
-                        <h2>Add borders</h2>
-                        <p>Or, keep it light and add a border for some added definition to the boundaries of your
-                            content. Be sure to look under the hood at the source HTML here as we've adjusted the
-                            alignment and sizing of both column's content for equal-height.</p>
-                        <button class="btn btn-outline-secondary" type="button">Example button</button>
+                        <h2>Words</h2>
+                        <p id="word-results-words" class="p4 font-monospace bg-body rounded border"
+                            style="min-height: 100px;">
+                        </p>
                     </div>
                 </div>
             </div>
 
             <footer class="pt-3 mt-4 text-muted border-top">
-                &copy; 2021
+                <span class="text-muted small">
+                    2022 &copy; <a class="link-secondary" href="https://jsturges.com" target="_blank">James Clarke
+                        Sturges</a>
+                </span>
             </footer>
         </div>
     </main>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script>
+        (function ($doc) {
+            var query = {}, timeout, $request = null, $resultWords = $("#word-results-words"),
+                $resultCount = $("#word-results-count"), $resultTime = $("#word-results-time");
+
+            function update(params) {
+                if (Object.keys(params).length) {
+                    clearTimeout(timeout);
+
+                    timeout = setTimeout(function () {
+                        if ($request && $request.readyState !== 4) {
+                            // console.log("aborting...");
+                            $request.abort();
+                        }
+
+                        // console.log("searching...");
+                        var start = new Date().getTime();
+                        $request = $.get("/search", query);
+                        $request.then(function (data) {
+                            var time = new Date().getTime() - start,
+                                $words = (data.words || []).map(function (word) {
+                                    return $("<li>").text(word);
+                                }),
+                                $wordList = $("<ul>").append($words);
+
+                            $resultWords.empty().append($wordList);
+                            $resultTime.text((time / 1000).toFixed(3) + "s");
+                            $resultCount.text(data.count);
+                        });
+                        // TODO: add $request.fail() -- need to handle the "abort" scenario
+                    }, 500);
+                } else {
+                    $resultWords.empty();
+                    $resultTime.text("0s");
+                    $resultCount.text(0);
+                }
+            }
+
+            $("#wh-form .wh-param-input").on("input", function (ctrl) {
+                var param = ctrl.target.dataset.param,
+                    value = ctrl.target.value;
+
+                if (value) {
+                    query[param] = value;
+                } else {
+                    delete query[param];
+                }
+
+                update(query);
+            });
+        }());
+    </script>
 
 </body>
 

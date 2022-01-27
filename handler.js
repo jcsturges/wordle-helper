@@ -2,33 +2,29 @@ const serverless = require('serverless-http')
 const express = require('express')
 const app = express()
 
-const words = require('./data/words_len_5.json')
+const WORDS = require('./data/words_len_5.json')
 
 /*eslint no-unused-vars: ["error", {"args": "after-used"}]*/
 
-// app.get('/', (req, res,) => {
-// 	return res.status(200).json({
-// 		message: 'Hello from root!'
-// 	})
-// })
 app.use(express.static('public'))
 
-app.get('/hello', (req, res,) => {
-	return res.status(200).json({
-		message: 'Hello from path!'
-	})
+app.get('/status', (req, res,) => res.sendStatus(200))
+
+app.get('/search', (req, res,) => {
+  const { start, end, contains } = req.query
+
+  const words = WORDS.filter(value => {
+    const matchStart = start ? value.startsWith(start) : true
+    const matchContains = contains ? value.includes(contains) : true
+    const matchEnd = end ? value.endsWith(end) : true
+
+    return matchStart && matchContains && matchEnd
+  })
+
+  res.status(200).json({ words, count: words.length })
 })
 
-app.get('/wordle/:letter', (req, res,) => {
-	const letter = req.params.letter
-	return res.status(200).json(words.filter(word => word.includes(letter)))
-})
-
-app.use((req, res,) => {
-	return res.status(404).json({
-		error: 'Not Found',
-	})
-})
+app.use((req, res,) => res.sendStatus(404))
 
 module.exports.app = app
 module.exports.handler = serverless(app)
