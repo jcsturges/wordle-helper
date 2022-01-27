@@ -11,17 +11,17 @@ app.use(express.static('public'))
 app.get('/status', (req, res,) => res.sendStatus(200))
 
 app.get('/search', (req, res,) => {
-  const { start, end, contains } = req.query
+	const { start, end, contains } = req.query
 
-  const words = WORDS.filter(value => {
-    const matchStart = start ? value.startsWith(start) : true
-    const matchContains = contains ? value.includes(contains) : true
-    const matchEnd = end ? value.endsWith(end) : true
+	const words = WORDS.filter(value => {
+		const matchStart = start ? value.startsWith(start) : true
+		const matchContains = contains ? value.includes(contains) : true
+		const matchEnd = end ? value.endsWith(end) : true
 
-    return matchStart && matchContains && matchEnd
-  })
+		return matchStart && matchContains && matchEnd
+	})
 
-  res.status(200).json({ words, count: words.length })
+	res.status(200).json({ words, count: words.length })
 })
 
 app.use((req, res,) => res.sendStatus(404))
