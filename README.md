@@ -18,6 +18,8 @@ This utility uses the [Serverless Framework](https://github.com/serverless) to d
 - [ ] programatically assign a custom domain name during deployment
 - [ ] add support for other word lengths
 - [ ] additional language support (?)
+- [ ] replace API search with in-memory/JSON search (?)
+- [ ] test coverage, CI/CD, linting
 
 ## usage
 
@@ -25,6 +27,7 @@ This utility uses the [Serverless Framework](https://github.com/serverless) to d
 
 - install dependencies: `npm install`
 - run locally using [express.js](http://expressjs.com): `npm run watch` (for dev/testing)
+- run locally using [serverless-offline](https://github.com/dherault/serverless-offline): `npm run offine` (simulates AWS API request/response)
 - deploy to AWS: `npm run deploy`
 
 ### deployment
