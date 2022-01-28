@@ -105,9 +105,17 @@
                 </div>
                 <div class="col-md-6">
                     <div class="h-100 p-5 bg-light border rounded-3">
-                        <h2>Words</h2>
+                        <div class="row">
+                            <div class="col">
+                                <h2>Words</h2>
+                            </div>
+                            <div class="col d-flex align-items-end flex-column">
+                                <img id="ajax-loader" class="float-end mb-3 mt-auto me-3 hide" src="img/loading.gif" />
+                            </div>
+                        </div>
                         <div class="bg-body rounded border">
-                            <div id="word-results-words" class="font-monospace align-middle" style="min-height: 100px;">
+                            <div id="word-results-words" class="font-monospace align-middle overflow-auto"
+                                style="min-height: 100px; max-height: 500px;">
                                 <div id="word-results-placeholder"
                                     class="small text-muted text-center align-middle py-5">
                                     :)
@@ -133,54 +141,39 @@
         integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script>
         (function ($doc) {
-            var query = {}, timeout, $request = null,
+            var $wordLength = $("#word-length"),
+                $textInputs = $("#wh-form .wh-param-input"),
                 $resultWords = $("#word-results-words"),
                 $resultWordsPh = $("#word-results-placeholder").clone(),
                 $resultCount = $("#word-results-count"),
-                $resultTime = $("#word-results-time");
+                $resultTime = $("#word-results-time"),
+                $loader = $("#ajax-loader"),
+                query = {}, timeout, $request = null;
+
+            $doc.ajaxStart(function () {
+                $loader.show();
+            });
+            $doc.ajaxStop(function () {
+                $loader.fadeOut(8E2);
+            });
 
             function update(params) {
                 if (Object.keys(params).length) {
                     clearTimeout(timeout);
 
                     timeout = setTimeout(function () {
+                        var start = new Date().getTime(),
+                            searchParams = Object.assign({}, query, { length: $wordLength.val() });
+
                         if ($request && $request.readyState !== 4) {
-                            // console.log("aborting...");
                             $request.abort();
                         }
 
-                        // console.log("searching...");<span class="badge bg-light text-dark">Light</span>
-                        var start = new Date().getTime();
-                        $request = $.get("/search", query);
+                        $request = $.get("/search", searchParams);
                         $request.then(function (data) {
-                            var time = new Date().getTime() - start,
-                                words = (data.words || []),
-                                $wordList = $("<table>")
-                                    .addClass("table table-hover table-striped")
-                                    .append($("<tbody>")
-                                        .append(words.map(function (word) {
-                                            return $("<tr>")
-                                                .append($("<td>")
-                                                    .addClass("text-center fw-bold")
-                                                    .text(word))
-                                                .append($("<td>")
-                                                    .addClass("text-center")
-                                                    .append($("<a>")
-                                                        .attr({
-                                                            href: "https://www.google.com/search?q=define+" + word,
-                                                            rel: "noopener noreferrer",
-                                                            target: "_blank",
-                                                            title: "Define '" + word + "' (opens new window)"
-                                                        })
-                                                        .append($("<span>")
-                                                            .addClass("badge badge-outline bg-primary")
-                                                            .text("define"))));
-                                        })));
-
-                            $resultWords.empty().append($wordList);
-                            $resultTime.text(fmtNumber((time / 1000).toFixed(3)) + "s");
-                            $resultCount.text(fmtNumber(data.count));
+                            render(data.words || [], new Date().getTime() - start);
                         });
+
                         // TODO: add $request.fail() -- need to handle the "abort" scenario
                     }, 500);
                 } else {
@@ -191,11 +184,39 @@
                 }
             }
 
+            function render(words, time) {
+                var $wordList = $("<table>")
+                    .addClass("table table-hover table-striped")
+                    .append($("<tbody>")
+                        .append(words.map(function (word) {
+                            return $("<tr>")
+                                .append($("<td>")
+                                    .addClass("text-center fw-bold")
+                                    .text(word))
+                                .append($("<td>")
+                                    .addClass("text-center")
+                                    .append($("<a>")
+                                        .attr({
+                                            href: "https://www.google.com/search?q=define+" + word,
+                                            rel: "noopener noreferrer",
+                                            target: "_blank",
+                                            title: "Define '" + word + "' (opens new window)"
+                                        })
+                                        .append($("<span>")
+                                            .addClass("badge badge-outline bg-primary")
+                                            .text("define"))));
+                        })));
+
+                $resultWords.empty().append($wordList);
+                $resultTime.text(fmtNumber((time / 1000).toFixed(3)) + "s");
+                $resultCount.text(fmtNumber(words.length));
+            }
+
             function fmtNumber(num) {
                 return num ? ("" + num).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : num
             }
 
-            $("#wh-form .wh-param-input").on("input", function (ctrl) {
+            $textInputs.on("input", function (ctrl) {
                 var param = ctrl.target.dataset.param,
                     value = ctrl.target.value;
 
@@ -207,7 +228,7 @@
 
                 update(query);
             });
-        }());
+        }($(document)));
     </script>
 
 </body>

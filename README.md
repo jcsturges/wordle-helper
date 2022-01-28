@@ -18,7 +18,8 @@ This utility uses the [Serverless Framework](https://github.com/serverless) to d
 - [ ] programatically assign a custom domain name during deployment
 - [ ] add support for other word lengths
 - [ ] additional language support (?)
-- [ ] replace API search with in-memory/JSON search (?)
+- [ ] replace API search with in-memory/JSON search (API is overkill, but created to abstract for other data sets later)
+- [ ] replace front-end with React or similar (?)
 - [ ] test coverage, CI/CD, linting
 
 ## usage

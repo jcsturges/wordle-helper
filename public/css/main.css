@@ -33,3 +33,5 @@
     background-color: rgb(13, 110, 253) !important;
     color: white !important;
 }
+
+.hide { display: none; }
