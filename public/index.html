@@ -32,7 +32,7 @@
                     <img src="img/apple-touch-icon.png" width="32" height="32" style="margin-right: 8px;" />
                     <span class="fs-4">Wordle Helper</span>
                 </a>
-                <ul class="nav nav-pills">
+                <ul class="nav nav-pills ms-2">
                     <a id="nav-github" class="btn btn-sm btn-outline-dark"
                         href="https://github.com/jcsturges/wordle-helper" role="button" target="_blank"
                         rel="noopener noreferrer">
@@ -53,22 +53,26 @@
                         search criteria to get started.</p>
                     <div id="wh-form" class="row g-3">
                         <div class="col-md-2">
-                            <label for="word-start" class="form-label">Starts With</label>
+                            <label for="word-start" class="form-label">Starts With <span
+                                    class="text-muted small">(exact)</span></label>
                             <input type="text" class="form-control wh-param-input" id="word-start" data-param="start"
                                 autocomplete="off">
                         </div>
                         <div class="col-md-3">
-                            <label for="word-contains" class="form-label">Contains</label>
+                            <label for="word-contains" class="form-label">Contains <span
+                                    class="text-muted small">(exact)</span></label>
                             <input type="text" class="form-control wh-param-input" id="word-contains"
                                 data-param="contains" autocomplete="off">
                         </div>
                         <div class="col-md-3">
-                            <label for="word-excludes" class="form-label">Does Not Contain</label>
+                            <label for="word-excludes" class="form-label">Does Not Contain <span
+                                    class="text-muted small">(any)</span></label>
                             <input type="text" class="form-control wh-param-input" id="word-excludes"
                                 data-param="excludes" autocomplete="off">
                         </div>
                         <div class="col-md-2">
-                            <label for="word-end" class="form-label">Ends With</label>
+                            <label for="word-end" class="form-label">Ends With <span
+                                    class="text-muted small">(exact)</span></label>
                             <input type="text" class="form-control wh-param-input" id="word-end" data-param="end"
                                 autocomplete="off">
                         </div>
@@ -102,13 +106,20 @@
                 <div class="col-md-6">
                     <div class="h-100 p-5 bg-light border rounded-3">
                         <h2>Words</h2>
-                        <p id="word-results-words" class="p4 font-monospace bg-body rounded border"
-                            style="min-height: 100px;">
-                        </p>
+                        <div class="bg-body rounded border">
+                            <div id="word-results-words" class="font-monospace align-middle" style="min-height: 100px;">
+                                <div id="word-results-placeholder"
+                                    class="small text-muted text-center align-middle py-5">
+                                    :)
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="container">
             <footer class="pt-3 mt-4 text-muted border-top">
                 <span class="text-muted small">
                     2022 &copy; <a class="link-secondary" href="https://jsturges.com" target="_blank">James Clarke
@@ -122,8 +133,11 @@
         integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script>
         (function ($doc) {
-            var query = {}, timeout, $request = null, $resultWords = $("#word-results-words"),
-                $resultCount = $("#word-results-count"), $resultTime = $("#word-results-time");
+            var query = {}, timeout, $request = null,
+                $resultWords = $("#word-results-words"),
+                $resultWordsPh = $("#word-results-placeholder").clone(),
+                $resultCount = $("#word-results-count"),
+                $resultTime = $("#word-results-time");
 
             function update(params) {
                 if (Object.keys(params).length) {
@@ -135,15 +149,33 @@
                             $request.abort();
                         }
 
-                        // console.log("searching...");
+                        // console.log("searching...");<span class="badge bg-light text-dark">Light</span>
                         var start = new Date().getTime();
                         $request = $.get("/search", query);
                         $request.then(function (data) {
                             var time = new Date().getTime() - start,
-                                $words = (data.words || []).map(function (word) {
-                                    return $("<li>").text(word);
-                                }),
-                                $wordList = $("<ul>").append($words);
+                                words = (data.words || []),
+                                $wordList = $("<table>")
+                                    .addClass("table table-hover table-striped")
+                                    .append($("<tbody>")
+                                        .append(words.map(function (word) {
+                                            return $("<tr>")
+                                                .append($("<td>")
+                                                    .addClass("text-center fw-bold")
+                                                    .text(word))
+                                                .append($("<td>")
+                                                    .addClass("text-center")
+                                                    .append($("<a>")
+                                                        .attr({
+                                                            href: "https://www.google.com/search?q=define+" + word,
+                                                            rel: "noopener noreferrer",
+                                                            target: "_blank",
+                                                            title: "Define '" + word + "' (opens new window)"
+                                                        })
+                                                        .append($("<span>")
+                                                            .addClass("badge badge-outline bg-primary")
+                                                            .text("define"))));
+                                        })));
 
                             $resultWords.empty().append($wordList);
                             $resultTime.text(fmtNumber((time / 1000).toFixed(3)) + "s");
@@ -152,7 +184,8 @@
                         // TODO: add $request.fail() -- need to handle the "abort" scenario
                     }, 500);
                 } else {
-                    $resultWords.empty();
+                    $resultWords.empty()
+                        .append($resultWordsPh);
                     $resultTime.text("0s");
                     $resultCount.text(0);
                 }

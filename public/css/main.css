@@ -20,3 +20,16 @@
 
 .hide { display: none; }
 .not-allowed { cursor: not-allowed; }
+
+.badge.badge-outline.bg-primary {
+    border: 1px solid rgb(13, 110, 253) !important;
+    background-color: transparent !important;
+    color: rgb(13, 110, 253) !important;
+
+    font-size: 0.65em;
+    font-weight: 500;
+}
+.badge.badge-outline.bg-primary:hover {
+    background-color: rgb(13, 110, 253) !important;
+    color: white !important;
+}

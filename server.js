@@ -17,7 +17,7 @@ app.get('/search', (req, res,) => {
     const word = value.toLowerCase()
 
     const matchStart = start ? word.startsWith(start.toLowerCase()) : true
-    const matchContains = contains ? wordContains(word.toLowerCase(), contains.toLowerCase().split('')) : true
+    const matchContains = contains ? word.toLowerCase().includes(contains.toLowerCase()) : true
     const matchExcludes = excludes ? !wordContains(word.toLowerCase(), excludes.toLowerCase().split('')) : true
     const matchEnd = end ? word.endsWith(end) : true
 
