@@ -185,27 +185,34 @@
             }
 
             function render(words, time) {
-                var $wordList = $("<table>")
-                    .addClass("table table-hover table-striped")
-                    .append($("<tbody>")
-                        .append(words.map(function (word) {
-                            return $("<tr>")
-                                .append($("<td>")
-                                    .addClass("text-center fw-bold")
-                                    .text(word))
-                                .append($("<td>")
-                                    .addClass("text-center")
-                                    .append($("<a>")
-                                        .attr({
-                                            href: "https://www.google.com/search?q=define+" + word,
-                                            rel: "noopener noreferrer",
-                                            target: "_blank",
-                                            title: "Define '" + word + "' (opens new window)"
-                                        })
-                                        .append($("<span>")
-                                            .addClass("badge badge-outline bg-primary")
-                                            .text("define"))));
-                        })));
+                var $wordList;
+                if (!words || words.length === 0) {
+                    $wordList = $("<div>")
+                        .addClass("small text-muted text-center align-middle py-5")
+                        .text("Nothing to see here...");
+                } else {
+                    $wordList = $("<table>")
+                        .addClass("table table-hover table-striped")
+                        .append($("<tbody>")
+                            .append(words.map(function (word) {
+                                return $("<tr>")
+                                    .append($("<td>")
+                                        .addClass("text-center fw-bold")
+                                        .text(word))
+                                    .append($("<td>")
+                                        .addClass("text-center")
+                                        .append($("<a>")
+                                            .attr({
+                                                href: "https://www.google.com/search?q=define+" + word,
+                                                rel: "noopener noreferrer",
+                                                target: "_blank",
+                                                title: "Define '" + word + "' (opens new window)"
+                                            })
+                                            .append($("<span>")
+                                                .addClass("badge badge-outline bg-primary")
+                                                .text("define"))));
+                            })));
+                }
 
                 $resultWords.empty().append($wordList);
                 $resultTime.text(fmtNumber((time / 1000).toFixed(3)) + "s");
