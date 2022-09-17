@@ -1,10 +1,10 @@
 service: wordle-helper
-frameworkVersion: '2 || 3'
+frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: nodejs14.x
-  lambdaHashingVersion: '20201221'
+  versionFunctions: false
 
 # TODO: setup custom domain name
 # plugins:
